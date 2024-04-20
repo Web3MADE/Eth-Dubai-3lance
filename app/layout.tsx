@@ -2,6 +2,7 @@ import { ThemeProvider } from "@mui/material";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { theme } from "./config/theme";
+import PrivyProvider from "./frontend/providers/PrivyProvider";
 import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
@@ -19,7 +20,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-        <ThemeProvider theme={theme}>{children}</ThemeProvider>
+        <ThemeProvider theme={theme}>
+          <PrivyProvider>{children}</PrivyProvider>
+        </ThemeProvider>
       </body>
     </html>
   );
