@@ -26,7 +26,9 @@ model Job {
     freelancerId  String  
     client        User?     @relation("ClientJobs", fields: [clientId], references: [id])
     clientId      String?   // Optional; to be filled when a client attests to the job
-    skills      Json     @default("[]")
+    skills        Json      @default("[]")
+    schema        String    @default("")
+    jobHash       String    @default("") @unique // contains title, description & skills of the job on-chain/schema
     createdAt     DateTime  @default(now())
 }
 

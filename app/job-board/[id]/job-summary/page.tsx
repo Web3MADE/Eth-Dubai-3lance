@@ -5,6 +5,9 @@ export default async function Page({ params }: { params: { id: string } }) {
   const { job } = await res.json();
   return (
     <JobSummaryForm
+      schemaUID={job.id}
+      freelancerId={job.freelancerId}
+      schema={job.schema}
       title={job.title}
       price={job.price}
       description={job.description}

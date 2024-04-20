@@ -11,6 +11,7 @@ import {
 } from "@mui/material";
 import { ParamType, ethers } from "ethers";
 import React from "react";
+import { useAttestJob } from "../hooks/useAttestJob";
 
 interface Skill {
   id: number;
@@ -24,6 +25,9 @@ interface FreelancerOffer {
 }
 
 interface IJobSummaryForm {
+  schemaUID: string;
+  freelancerId: string;
+  schema: string;
   title: string;
   description: string;
   price: number;
@@ -31,12 +35,16 @@ interface IJobSummaryForm {
 }
 
 export default function JobSummaryForm({
+  schemaUID,
+  freelancerId,
+  schema,
   title,
   description,
   price,
   skills,
 }: IJobSummaryForm) {
-  const handleSubmit = (event: React.FormEvent) => {
+  const { attestJob } = useAttestJob();
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     // Logic to handle payment submission
     // 1. create hash via ethers of job details
@@ -53,8 +61,15 @@ export default function JobSummaryForm({
     ];
 
     const bytes32Hash = ethers.AbiCoder.defaultAbiCoder().encode(types, values);
-
-    console.log("bytes32Hash ", bytes32Hash);
+    // TODO: call useAttestJob hook
+    await attestJob({
+      schemaUID,
+      freelancerId,
+      schema,
+      jobHash: bytes32Hash,
+      isComplete: false,
+      price: price,
+    });
   };
 
   return (

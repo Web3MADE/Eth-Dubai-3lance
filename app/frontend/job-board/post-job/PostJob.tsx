@@ -83,7 +83,6 @@ export default function PostJob() {
 
     const jobSchemaData: IJobSchemaData = {
       ownerAddress: wallets[0].address,
-      projectID: { type: "bytes32", name: "1" },
       title: title,
       price: price,
       offer: offer,

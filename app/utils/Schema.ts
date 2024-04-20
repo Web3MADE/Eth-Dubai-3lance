@@ -46,8 +46,7 @@ export function constructEncodedData(
 }
 
 // Example usage:
-const schema =
-  "bytes32 ProjectID, address Freelancer, address Client, bool isCompleted";
+const schema = "string jobHash, bool isComplete, uint256 price";
 const projectValues = {
   ProjectID: "1",
   Freelancer: "0xFreelancerAddress",
@@ -55,5 +54,11 @@ const projectValues = {
   isCompleted: "false",
 };
 
-const encodedData = constructEncodedData(schema, projectValues);
-console.log(encodedData);
+const jobValues = {
+  jobHash: "0xJobHash",
+  isComplete: false,
+  price: 1,
+};
+
+// const encodedData = constructEncodedData(schema, jobValues);
+// console.log(encodedData);
