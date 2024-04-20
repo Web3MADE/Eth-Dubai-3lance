@@ -43,7 +43,7 @@ export default function JobBoard({ jobs }: IJobBoard) {
     >
       <Box sx={{ width: "50%" }}>
         <Card>
-          <CardHeader title="Need a Freelancer?" />
+          <CardHeader title="Get your perfect client" />
           <CardContent
             sx={{
               display: "flex",
