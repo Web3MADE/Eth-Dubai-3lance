@@ -9,7 +9,7 @@ contract DeployResolver is Script {
     function run() public {
         vm.startBroadcast();
         new JobResolver(
-            IEAS(0xC2679fBD37d54388Ce493F1DB75320D236e1815e)
+            IEAS(0x4200000000000000000000000000000000000021)
         );
         vm.stopBroadcast();
     }

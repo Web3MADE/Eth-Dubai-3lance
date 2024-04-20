@@ -18,12 +18,12 @@ import {
 import {Job} from "../src/types/Types.sol";
 // TODO:
 // 1. TDD
-// 2. fork sepolia test net for testing attestations
+// 2. fork Base-Sepolia test net for testing attestations
 
 contract JobResolverTest is Test {
     JobResolver public jobResolver;
-    ISchemaRegistry public schemaRegistry = ISchemaRegistry(0x0a7E2Ff54e76B8E6659aedc9103FB21c038050D0);
-    IEAS public eas = IEAS(0xC2679fBD37d54388Ce493F1DB75320D236e1815e);
+    ISchemaRegistry public schemaRegistry = ISchemaRegistry(0x4200000000000000000000000000000000000020);
+    IEAS public eas = IEAS(0x4200000000000000000000000000000000000021);
     bytes32 jobSchema;
     address freelancer = vm.addr(1);
     address client = vm.addr(2);
