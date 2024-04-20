@@ -3,10 +3,9 @@ import { ethers } from "ethers";
 import { BASE_SEPOLIA_URL } from "../config/Constants";
 
 const BASE_SEPOLIA_EAS = "0x4200000000000000000000000000000000000021";
-// TODO: redeploy resolver to base sepolia
-const BASE_SEPOLIA_RESOLVER = "0x8F62E3E65Ebd15A0EeED59eE178197c8c67De6E0";
 const BASE_SEPOLIA_SCHEMA_REGISTRY =
   "0x4200000000000000000000000000000000000020";
+const BASE_SEPOLIA_RESOLVER = "0xc534b9dd2DBE5cd843E5409d299814FC0634B82f";
 
 // TODO: use Base over Sepolia, & us smart accounts via Biconomy
 export function getEAS(privateKey: string) {
@@ -32,9 +31,10 @@ export async function registerSchema(privateKey: string, schema: string) {
   const signer = new ethers.Wallet(privateKey, provider);
 
   schemaRegistry.connect(signer);
+  console.log("resolver ", BASE_SEPOLIA_RESOLVER);
   const transaction = await schemaRegistry.register({
     schema,
-    // resolverAddress: BASE_SEPOLIA_RESOLVER,
+    resolverAddress: BASE_SEPOLIA_RESOLVER,
     revocable: true,
   });
 

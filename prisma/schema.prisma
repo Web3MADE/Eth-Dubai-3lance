@@ -8,22 +8,25 @@ datasource db {
 }
 
 model User {
-    id              String    @id @unique // wallet address
-    username        String?   @unique
-    email           String?   @unique
-    jobs            Job[]
-    createdAt       DateTime @default(now())
+    id          String    @id @unique // Wallet address as unique identifier
+    username    String?   @unique
+    email       String?   @unique
+    freelancerJobs  Job[]  @relation("FreelancerJobs") // Jobs where the user is the freelancer
+    clientJobs      Job[]  @relation("ClientJobs")     // Jobs where the user is the client
+    createdAt   DateTime  @default(now())
 }
 
 model Job {
-    id          String      @id @unique // Schema UID 
-    title       String
-    description String
-    price      Float?
-    status      String   @default("open")
-    freelancer  User     @relation(fields: [freelancerId], references: [id])
-    freelancerId String  
+    id            String    @id @unique // Schema UID
+    title         String
+    description   String
+    price         Float?
+    status        String    @default("open") // e.g., open, in progress, completed
+    freelancer    User      @relation("FreelancerJobs", fields: [freelancerId], references: [id])
+    freelancerId  String  
+    client        User?     @relation("ClientJobs", fields: [clientId], references: [id])
+    clientId      String?   // Optional; to be filled when a client attests to the job
     skills      Json     @default("[]")
-    createdAt   DateTime @default(now())
+    createdAt     DateTime  @default(now())
 }
 
