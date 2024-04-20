@@ -1,0 +1,65 @@
+.footer {
+  background-color: #005f73; /* Primary color */
+  color: #f1faee; /* On-primary color for readability */
+  padding: 20px 0;
+  font-family: "Roboto", "Open Sans", sans-serif;
+}
+
+.waves {
+  /* Uncomment and add your wave styles here if desired */
+}
+
+.social-icon {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 0;
+}
+
+.social-icon__item {
+  margin: 0 10px;
+}
+
+/* For social icons */
+.social-icon__item svg {
+  fill: #ffd166; /* Secondary color for icons */
+}
+
+.social-icon__item svg:hover {
+  fill: #e63946; /* Accent color on hover */
+  cursor: pointer;
+}
+
+/* For menu links */
+.menu__link {
+  color: #f1faee; /* On-primary color for readability */
+  text-decoration: none;
+}
+
+.menu__link:hover {
+  color: #e63946; /* Accent color on hover */
+}
+
+.menu {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  padding: 20px 0;
+}
+
+.menu__item {
+  margin: 0 15px;
+}
+
+.menu__link {
+  color: #f1faee; /* On-primary color for readability */
+  text-decoration: none;
+}
+
+/* Footer copyright text */
+.footer p {
+  text-align: center;
+  margin-top: 20px;
+  color: #ffd166; /* Secondary color */
+  font-size: 0.9rem;
+}
