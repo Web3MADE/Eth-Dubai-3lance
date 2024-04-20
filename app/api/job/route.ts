@@ -1,6 +1,7 @@
 import { registerSchema } from "@/app/utils/EAS";
 import { constructSchema } from "@/app/utils/Schema";
 import { sql } from "@vercel/postgres";
+import { revalidatePath } from "next/cache";
 import { NextResponse } from "next/server";
 // LATER: typecast params
 export async function POST(req: Request, res: Response) {
@@ -33,9 +34,10 @@ export async function POST(req: Request, res: Response) {
         ${jobSchemaData.ownerAddress},
         ${schemaUID},
         ${JSON.stringify(jobSchemaData.skills.map((skill: any) => skill.name))},
-        ${parseInt(jobSchemaData.price.name)},
+        ${parseFloat(jobSchemaData.price.name)},
         ${jobSchemaData.status.name}
       )`;
+    revalidatePath("/api/job");
 
     return NextResponse.json({ schemaUID });
   } catch (e) {
