@@ -31,7 +31,6 @@ export async function registerSchema(privateKey: string, schema: string) {
   const signer = new ethers.Wallet(privateKey, provider);
 
   schemaRegistry.connect(signer);
-  console.log("resolver ", BASE_SEPOLIA_RESOLVER);
   const transaction = await schemaRegistry.register({
     schema,
     resolverAddress: BASE_SEPOLIA_RESOLVER,

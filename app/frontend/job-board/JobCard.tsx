@@ -27,6 +27,7 @@ export default function JobCard({
   return (
     <Card
       sx={{
+        width: "100%",
         ":hover": {
           boxShadow: 10,
           cursor: "pointer",

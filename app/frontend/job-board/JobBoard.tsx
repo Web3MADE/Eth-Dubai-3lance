@@ -36,9 +36,10 @@ export default function JobBoard({ jobs }: IJobBoard) {
       sx={{
         display: "flex",
         flexDirection: "column",
-        height: "100vh",
+        height: "100%",
         justifyContent: "center",
         gap: "1rem",
+        my: "1rem",
       }}
     >
       <Box sx={{ width: "50%" }}>
@@ -69,6 +70,7 @@ export default function JobBoard({ jobs }: IJobBoard) {
         sx={{
           display: "flex",
           flexDirection: "column",
+          width: "100%",
           gap: "1rem",
           alignItems: "center",
           mt: 2,
