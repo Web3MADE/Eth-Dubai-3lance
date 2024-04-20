@@ -18,7 +18,7 @@ export function constructSchema(fields: { type: string; name: string }[]) {
   return schema;
 }
 
-export function prepareDataForEncoding(
+export function constructEncodedData(
   schemaString: string,
   values: Record<string, any>
 ) {
@@ -55,5 +55,5 @@ const projectValues = {
   isCompleted: "false",
 };
 
-const encodedData = prepareDataForEncoding(schema, projectValues);
+const encodedData = constructEncodedData(schema, projectValues);
 console.log(encodedData);

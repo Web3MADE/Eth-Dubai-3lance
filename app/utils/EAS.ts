@@ -39,3 +39,26 @@ export async function registerSchema(privateKey: string, schema: string) {
 
   return transaction;
 }
+
+export async function attestStartJob(
+  privateKey: string,
+  schemaUID: string,
+  encodedData: string,
+  recipient: string
+) {
+  const { eas, provider, signer } = getEAS(privateKey);
+
+  const tx = await eas.attest({
+    schema: schemaUID,
+    data: {
+      recipient,
+      expirationTime: BigInt(0),
+      revocable: true,
+      data: encodedData,
+    },
+  });
+
+  const attestationUID = await tx.wait();
+
+  return attestationUID;
+}

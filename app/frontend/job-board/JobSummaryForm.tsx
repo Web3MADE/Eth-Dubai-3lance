@@ -9,6 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { ParamType, ethers } from "ethers";
 import React from "react";
 
 interface Skill {
@@ -38,7 +39,22 @@ export default function JobSummaryForm({
   const handleSubmit = (event: React.FormEvent) => {
     event.preventDefault();
     // Logic to handle payment submission
-    console.log("Payment submitted for:", price, " ETH");
+    // 1. create hash via ethers of job details
+    // 2. encode data and attest (hash, isComplete, price) + payment
+    const types: ReadonlyArray<string | ParamType> = [
+      "string",
+      "string",
+      "string",
+    ];
+    const values: ReadonlyArray<any> = [
+      title,
+      description,
+      JSON.stringify(skills),
+    ];
+
+    const bytes32Hash = ethers.AbiCoder.defaultAbiCoder().encode(types, values);
+
+    console.log("bytes32Hash ", bytes32Hash);
   };
 
   return (
@@ -71,7 +87,7 @@ export default function JobSummaryForm({
             fullWidth
             defaultValue={price}
             sx={{ marginBottom: 2 }}
-            inputProps={{ min: 1 }} // Setting minimum amount to 1
+            inputProps={{ min: 0.0001 }} // Setting minimum amount to 1
           />
           <Button type="submit" variant="contained" color="primary" fullWidth>
             Deposit and Start Job
