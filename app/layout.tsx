@@ -1,7 +1,7 @@
 import { ThemeProvider } from "@mui/material";
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
-import { theme } from "./config/theme";
+import { theme } from "./config/Theme";
 import PrivyProvider from "./frontend/providers/PrivyProvider";
 import "./globals.css";
 
