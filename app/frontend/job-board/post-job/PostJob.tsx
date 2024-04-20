@@ -15,9 +15,9 @@ import { useState } from "react";
 import {
   IJobSchemaData,
   useRegisterJobSchema,
-} from "../hooks/useRegisterJobSchema";
+} from "../../hooks/useRegisterJobSchema";
 
-export default function PostFreelanceJob() {
+export default function PostJob() {
   const { ready: isWalletReady, wallets } = useWallets();
   const { registerJobSchema, loading, error } = useRegisterJobSchema();
 
