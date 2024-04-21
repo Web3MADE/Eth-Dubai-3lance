@@ -1,6 +1,7 @@
 import { attestStartJob } from "@/app/utils/EAS";
 import { constructEncodedData } from "@/app/utils/Schema";
 import { SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
+import { sql } from "@vercel/postgres";
 import { ethers } from "ethers";
 import { NextRequest, NextResponse } from "next/server";
 
@@ -27,7 +28,13 @@ export async function POST(req: NextRequest, res: NextResponse) {
       attestJobData.freelancerId,
       attestJobData.price
     );
-    return NextResponse.json({ attestationUID });
+
+    // update job status to pending
+    // update UI & allow client to attest to finishing job
+    // observe ether is sent to Freelancer wallet
+    await sql`UPDATE "Job" WHERE "schemaID" = ${attestJobData.schemaUID} SET "status" = 'pending'`;
+
+    return NextResponse.json({ jobStatus: "pending" });
   } catch (e) {
     console.error(e);
     return NextResponse.json({ message: "Error" });
