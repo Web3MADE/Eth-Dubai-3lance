@@ -12,6 +12,7 @@
     "@biconomy/account": "^4.1.1",
     "@biconomy/bundler": "^4.1.1",
     "@biconomy/common": "^4.1.1",
+    "@biconomy/modules": "^4.1.1",
     "@biconomy/paymaster": "^4.1.1",
     "@emotion/react": "^11.11.4",
     "@emotion/styled": "^11.11.5",
