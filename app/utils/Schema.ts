@@ -29,6 +29,7 @@ export function constructEncodedData(
   });
 
   // Map each field definition to the required format for encoding
+
   const encodedData = fields.map(({ name, type }) => {
     // Check if the value for the field is provided
     if (values.hasOwnProperty(name)) {

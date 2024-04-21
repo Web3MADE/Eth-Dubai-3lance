@@ -13,14 +13,14 @@ export function useAttestJob() {
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState<any>(null);
 
-  const attestJob = async (attestJobdata: IAttestJobData) => {
+  const attestJob = async (attestJobData: IAttestJobData) => {
     setLoading(true);
     setError(null);
 
     try {
-      const response = await fetch("/api/job", {
+      const response = await fetch("/api/attest", {
         method: "POST",
-        body: JSON.stringify({ attestJobdata }),
+        body: JSON.stringify({ attestJobData }),
       });
       const data = await response.json();
       return data;

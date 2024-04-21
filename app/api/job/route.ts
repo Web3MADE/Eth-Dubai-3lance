@@ -36,7 +36,7 @@ export async function POST(req: Request, res: Response) {
         name: "isComplete",
       },
       {
-        type: "number",
+        type: "uint256",
         name: "price",
       },
     ]);

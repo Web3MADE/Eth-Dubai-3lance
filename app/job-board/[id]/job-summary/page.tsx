@@ -8,6 +8,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       schemaUID={job.id}
       freelancerId={job.freelancerId}
       schema={job.schema}
+      jobHash={job.jobHash}
       title={job.title}
       price={job.price}
       description={job.description}

@@ -1,7 +1,7 @@
-import {
-  // const encodedSchema = constructSchema(attestJobData.schema);
-  IAttestJobData,
-} from "@/app/frontend/hooks/useAttestJob";
+import { attestStartJob } from "@/app/utils/EAS";
+import { constructEncodedData } from "@/app/utils/Schema";
+import { SchemaEncoder } from "@ethereum-attestation-service/eas-sdk";
+import { ethers } from "ethers";
 import { NextRequest, NextResponse } from "next/server";
 
 export async function POST(req: NextRequest, res: NextResponse) {
@@ -9,17 +9,39 @@ export async function POST(req: NextRequest, res: NextResponse) {
     if (!process.env.ADMIN_PRIVATE_KEY) {
       throw new Error("Admin private key not found");
     }
+    const { attestJobData } = await req.json();
+    const updatedSchema = removeUUID(attestJobData.schema);
+    const schemaValues = {
+      jobHash: attestJobData.jobHash,
+      isComplete: attestJobData.isComplete,
+      price: ethers.parseEther(attestJobData.price.toString()),
+    };
+    const constructedData = constructEncodedData(updatedSchema, schemaValues);
+    const schemaEncoder = new SchemaEncoder(updatedSchema);
+    const encodedData = schemaEncoder.encodeData(constructedData);
 
-    const attestJobData = (await req.json()) as IAttestJobData;
-    console.log("req body attestJobData ", attestJobData);
-
-    // construct encodedSchema = need jobHash, isComplete, price from DB
-    // attest job + send eth payment from admin wallet for now
-    //
-
-    return NextResponse.json({ res: "Success" });
+    const attestationUID = await attestStartJob(
+      process.env.ADMIN_PRIVATE_KEY,
+      attestJobData.schemaUID,
+      encodedData,
+      attestJobData.freelancerId,
+      attestJobData.price
+    );
+    return NextResponse.json({ attestationUID });
   } catch (e) {
     console.error(e);
     return NextResponse.json({ message: "Error" });
   }
+}
+
+function removeUUID(originalSchema: string): string {
+  const components = originalSchema.split(", ");
+
+  // Remove the first component which is assumed to be the UUID string
+  components.shift();
+
+  // Join the remaining components back into a single string
+  const modifiedSchema = components.join(", ");
+
+  return modifiedSchema;
 }

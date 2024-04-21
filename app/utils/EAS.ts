@@ -43,8 +43,9 @@ export async function registerSchema(privateKey: string, schema: string) {
 export async function attestStartJob(
   privateKey: string,
   schemaUID: string,
-  encodedData: string,
-  recipient: string
+  encodedData: any,
+  recipient: string,
+  price: number
 ) {
   const { eas, provider, signer } = getEAS(privateKey);
 
@@ -55,6 +56,7 @@ export async function attestStartJob(
       expirationTime: BigInt(0),
       revocable: true,
       data: encodedData,
+      value: ethers.parseEther(price.toString()),
     },
   });
 

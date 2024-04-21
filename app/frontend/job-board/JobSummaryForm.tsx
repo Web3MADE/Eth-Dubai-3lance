@@ -9,7 +9,6 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
-import { ParamType, ethers } from "ethers";
 import React from "react";
 import { useAttestJob } from "../hooks/useAttestJob";
 
@@ -27,6 +26,7 @@ interface FreelancerOffer {
 interface IJobSummaryForm {
   schemaUID: string;
   freelancerId: string;
+  jobHash: string;
   schema: string;
   title: string;
   description: string;
@@ -38,6 +38,7 @@ export default function JobSummaryForm({
   schemaUID,
   freelancerId,
   schema,
+  jobHash,
   title,
   description,
   price,
@@ -48,25 +49,12 @@ export default function JobSummaryForm({
     event.preventDefault();
     // Logic to handle payment submission
     // 1. create hash via ethers of job details
-    // 2. encode data and attest (hash, isComplete, price) + payment
-    const types: ReadonlyArray<string | ParamType> = [
-      "string",
-      "string",
-      "string",
-    ];
-    const values: ReadonlyArray<any> = [
-      title,
-      description,
-      JSON.stringify(skills),
-    ];
-
-    const bytes32Hash = ethers.AbiCoder.defaultAbiCoder().encode(types, values);
     // TODO: call useAttestJob hook
     await attestJob({
       schemaUID,
       freelancerId,
       schema,
-      jobHash: bytes32Hash,
+      jobHash,
       isComplete: false,
       price: price,
     });
@@ -102,7 +90,7 @@ export default function JobSummaryForm({
             fullWidth
             defaultValue={price}
             sx={{ marginBottom: 2 }}
-            inputProps={{ min: 0.0001 }} // Setting minimum amount to 1
+            // inputProps={{ min: 0.0001 }} // Setting minimum amount to 1
           />
           <Button type="submit" variant="contained" color="primary" fullWidth>
             Deposit and Start Job
