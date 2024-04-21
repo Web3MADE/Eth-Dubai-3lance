@@ -13,6 +13,7 @@ export default async function Page({ params }: { params: { id: string } }) {
       price={job.price}
       description={job.description}
       skills={job.skills}
+      status={job.status}
     />
   );
 }

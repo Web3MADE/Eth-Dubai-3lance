@@ -4,7 +4,8 @@ import { NextResponse } from "next/server";
 
 export async function GET(req: Request, res: Response) {
   try {
-    const res = await sql`SELECT * FROM "Job" WHERE status = 'open'`;
+    // Get ALL jobs regardless of status
+    const res = await sql`SELECT * FROM "Job"`;
     // Revalidate/purge the cache for the /api/jobs path
     revalidatePath("/api/jobs");
     return NextResponse.json({ jobs: res.rows });

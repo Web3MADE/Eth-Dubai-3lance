@@ -9,6 +9,7 @@ import {
   TextField,
   Typography,
 } from "@mui/material";
+import { useRouter } from "next/navigation";
 import React from "react";
 import { useAttestJob } from "../hooks/useAttestJob";
 
@@ -32,6 +33,7 @@ interface IJobSummaryForm {
   description: string;
   price: number;
   skills: any[];
+  status: string;
 }
 
 export default function JobSummaryForm({
@@ -43,21 +45,47 @@ export default function JobSummaryForm({
   description,
   price,
   skills,
+  status,
 }: IJobSummaryForm) {
+  const router = useRouter();
+
   const { attestJob } = useAttestJob();
+  const [jobStatus, setJobStatus] = React.useState(status);
+
+  console.log("jobs status ", jobStatus);
+
   const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
     // Logic to handle payment submission
     // 1. create hash via ethers of job details
     // TODO: call useAttestJob hook
-    await attestJob({
-      schemaUID,
-      freelancerId,
-      schema,
-      jobHash,
-      isComplete: false,
-      price: price,
-    });
+    if (jobStatus === "open") {
+      await attestJob({
+        schemaUID,
+        freelancerId,
+        schema,
+        jobHash,
+        isComplete: false,
+        price: price,
+      });
+      setJobStatus("pending");
+    }
+
+    if (jobStatus === "pending") {
+      await attestJob({
+        schemaUID,
+        freelancerId,
+        schema,
+        jobHash,
+        isComplete: true,
+        price: price,
+      });
+      setJobStatus("complete");
+    }
+
+    if (jobStatus === "complete") {
+      router.push("/job-board");
+    }
   };
 
   return (
@@ -92,9 +120,21 @@ export default function JobSummaryForm({
             sx={{ marginBottom: 2 }}
             // inputProps={{ min: 0.0001 }} // Setting minimum amount to 1
           />
-          <Button type="submit" variant="contained" color="primary" fullWidth>
-            Deposit and Start Job
-          </Button>
+          {jobStatus === "open" && (
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Deposit and Start Job
+            </Button>
+          )}
+          {jobStatus === "pending" && (
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Complete Job
+            </Button>
+          )}
+          {jobStatus === "complete" && (
+            <Button type="submit" variant="contained" color="primary" fullWidth>
+              Back to Dashboard
+            </Button>
+          )}
         </form>
       </Paper>
     </Box>

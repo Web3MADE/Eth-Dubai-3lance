@@ -33,9 +33,9 @@ contract JobResolver is SchemaResolver {
             return true;
         } 
     
-        // client makes final attestation
-        require(jobAttestation.attester == selectedClient, "JobResolver: Only Client can send payment");
-        require(jobAttestation.recipient == selectedFreelancer, "JobResolver: Freelancer must be recipient");
+        // REMOVE SAFEGUARDS FOR HACKATHON
+        // require(jobAttestation.attester == selectedClient, "JobResolver: Only Client can send payment");
+        // require(jobAttestation.recipient == selectedFreelancer, "JobResolver: Freelancer must be recipient");
         require(isComplete == true, "JobResolver: Job is not complete");
         require(address(this).balance >= value, "Insufficient contract balance");
         // freelancer recieves payment
