@@ -32,7 +32,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
     // update job status to pending
     // update UI & allow client to attest to finishing job
     // observe ether is sent to Freelancer wallet
-    await sql`UPDATE "Job" WHERE "schemaID" = ${attestJobData.schemaUID} SET "status" = 'pending'`;
+    await sql`UPDATE "Job" SET "status" = 'pending' WHERE "id" = ${attestJobData.schemaUID} `;
 
     return NextResponse.json({ jobStatus: "pending" });
   } catch (e) {
