@@ -90,7 +90,6 @@ export default function PostJob() {
       status: status,
     };
     const uid = await registerJobSchema(jobSchemaData);
-    console.log("uid ", uid);
   };
 
   return (

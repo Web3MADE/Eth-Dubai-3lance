@@ -45,7 +45,7 @@ export async function POST(req: NextRequest, res: NextResponse) {
   }
 }
 
-function removeUUID(originalSchema: string): string {
+export function removeUUID(originalSchema: string): string {
   const components = originalSchema.split(", ");
 
   // Remove the first component which is assumed to be the UUID string
